@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>강보승 | 포트폴리오</title>
+    <style>
+        /* 1. 기본 스타일 리셋 및 폰트 설정 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #08e953;
+            background-color: #12df0b;
+            padding-bottom: 60px;
+        }
+
+        /* 2. 헤더 & 내비게이션 디자인 */
+        header {
+            background-color: #c3c2c7;
+            border-bottom: 1px solid #e9ecef;
+            padding: 2rem 1rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        header h1 {
+            font-size: 1.8rem;
+            color: #111;
+            margin-bottom: 0.3rem;
+        }
+        header p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #495057;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: #4c6ef5;
+        }
+
+        /* 3. 레이아웃 & 섹션 공통 스타일 */
+        section {
+            max-width: 700px;
+            margin: 2rem auto;
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+        }
+        h2 {
+            font-size: 1.4rem;
+            color: #212529;
+            border-bottom: 2px solid #4c6ef5;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.2rem;
+            display: inline-block;
+        }
+
+        /* 4. 자기소개 섹션 */
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #e9ecef;
+        }
+        .profile-text {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        /* 5. 취미 섹션 */
+        #hobbies ul {
+            list-style: none;
+        }
+        #hobbies li {
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #e9ecef;
+        }
+        #hobbies li:last-child {
+            border-bottom: none;
+        }
+
+        /* 6. 프로젝트 섹션 */
+        article {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.2rem;
+            border: 1px solid #e9ecef;
+        }
+        article h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #111;
+        }
+        .project-img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin: 0.8rem 0;
+        }
+        article ul {
+            margin-left: 1.2rem;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            background-color: #4c6ef5;
+            color: #4c9161;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-right: 0.3rem;
+            transition: background-color 0.2s;
+        }
+        .btn:hover {
+            background-color: #3b5bdb;
+        }
+
+        /* 7. 연락처 섹션 */
+        #contact p {
+            margin-bottom: 0.5rem;
+        }
+        #contact a {
+            color: #4c6ef5;
+            text-decoration: none;
+        }
+        #contact a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. 헤더 & 내비게이션 -->
+    <header>
+        <h1>나의 포트폴리오</h1>
+        <p>강보승</p>
+        <nav>
+            <ul>
+                <li><a href="#about">自己PR</a></li>
+                <li><a href="#hobbies">趣味</a></li>
+                <li><a href="#contact">連絡先</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 2. 자기소개섹션 -->
+    <section id="about">
+        <h2>自己PR</h2>
+        <div class="profile-container">
+            <div class="profile-text">
+              <p></p>  
+              <p>경성대학교 일어일문과 4학년 강보승입니다.</p>
+              <P>N2자격증을 소지하고 있고 전기전자기기기능사를 소지하고 있습니다.</P>
+                 <br>
+                <p></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 취미 및 관심사 섹션 -->
+    <section id="hobbies">
+        <h2>趣味</h2>
+        <ul>
+            <li><strong>영화감상:</strong> 주로 유럽영화나 일본영화를 감상합니다.</li>
+            <li><strong>J-POP 음악:</strong> j-pop 음악을 듣는 것을 좋아합니다.</li>
+        </ul>
+    </section>
+
+    
+    </section>
+
+    <!-- 4. 연락처 섹션 -->
+    <section id="contact">
+        <h2>連絡先</h2>
+        <p><strong>이메일:</strong> kbswa123@ gmail.com</p>
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    
+  </body>
+</html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <base target="_top">
+
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>교육만족도 설문조사</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f5f7fb;
+      font-family:
+        Arial,
+        "Noto Sans KR",
+        sans-serif;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #182033;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background: white;
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    }
+
+    .icon {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 16px;
+
+      border-radius: 17px;
+      background: #246bfe;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    h1 {
+      margin: 0;
+      text-align: center;
+      font-size: 25px;
+    }
+
+    .description {
+      margin: 10px 0 30px;
+      text-align: center;
+      color: #737c8c;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .field {
+      margin-bottom: 22px;
+    }
+
+    .title {
+      display: block;
+      margin-bottom: 9px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      border: 1px solid #dce1e9;
+      border-radius: 12px;
+      padding: 14px;
+
+      background: #fafbfd;
+      font-family: inherit;
+      font-size: 15px;
+
+      outline: none;
+    }
+
+    input[type="text"] {
+      height: 50px;
+    }
+
+    textarea {
+      min-height: 125px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: #246bfe;
+      box-shadow: 0 0 0 4px rgba(36,107,254,0.1);
+      background: white;
+    }
+
+    .rating {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    .rating input {
+      display: none;
+    }
+
+    .rating label {
+      height: 48px;
+
+      border: 1px solid #dce1e9;
+      border-radius: 12px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #fafbfd;
+      color: #606a7a;
+
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .rating input:checked + label {
+      background: #246bfe;
+      color: white;
+      border-color: #246bfe;
+    }
+
+    .caption {
+      display: flex;
+      justify-content: space-between;
+
+      margin-top: 7px;
+
+      color: #8b93a0;
+      font-size: 11px;
+    }
+
+    button {
+      width: 100%;
+      height: 54px;
+
+      border: 0;
+      border-radius: 14px;
+
+      background: #246bfe;
+      color: white;
+
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: bold;
+
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .error {
+      display: none;
+
+      margin-top: 13px;
+      padding: 12px;
+
+      border-radius: 10px;
+
+      background: #fff0f0;
+      color: #c62828;
+
+      font-size: 13px;
+    }
+
+    #success {
+      display: none;
+      text-align: center;
+      padding: 35px 5px;
+    }
+
+    .success-icon {
+      width: 76px;
+      height: 76px;
+
+      margin: 0 auto 22px;
+
+      border-radius: 50%;
+
+      background: #eaf7ef;
+      color: #239653;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 38px;
+      font-weight: bold;
+    }
+
+    #success h2 {
+      margin: 0;
+
+      font-size: 25px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 480px) {
+
+      body {
+        padding: 15px;
+        align-items: flex-start;
+        padding-top: 30px;
+      }
+
+      .card {
+        padding: 29px 20px 25px;
+        border-radius: 20px;
+      }
+
+      h1 {
+        font-size: 23px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <!-- 설문 화면 -->
+    <div id="survey">
+
+      <div class="icon">✓</div>
+
+      <h1>교육만족도 설문조사</h1>
+
+      <p class="description">
+        교육에 대한 여러분의 소중한 의견을 남겨주세요.
+      </p>
+
+      <form id="form">
+
+        <!-- 이름 -->
+        <div class="field">
+
+          <label class="title" for="name">
+            이름
+          </label>
+
+          <input
+            id="name"
+            type="text"
+            placeholder="이름을 입력해주세요."
+            required
+          >
+
+        </div>
+
+
+        <!-- 교육만족도 -->
+        <div class="field">
+
+          <label class="title">
+            교육만족도
+          </label>
+
+          <div class="rating">
+
+            <input
+              id="r1"
+              name="rating"
+              type="radio"
+              value="1점"
+            >
+            <label for="r1">1점</label>
+
+
+            <input
+              id="r2"
+              name="rating"
+              type="radio"
+              value="2점"
+            >
+            <label for="r2">2점</label>
+
+
+            <input
+              id="r3"
+              name="rating"
+              type="radio"
+              value="3점"
+            >
+            <label for="r3">3점</label>
+
+
+            <input
+              id="r4"
+              name="rating"
+              type="radio"
+              value="4점"
+            >
+            <label for="r4">4점</label>
+
+
+            <input
+              id="r5"
+              name="rating"
+              type="radio"
+              value="5점"
+            >
+            <label for="r5">5점</label>
+
+          </div>
+
+          <div class="caption">
+            <span>매우 불만족</span>
+            <span>매우 만족</span>
+          </div>
+
+        </div>
+
+
+        <!-- 가장 도움이 된 내용 -->
+        <div class="field">
+
+          <label
+            class="title"
+            for="helpful"
+          >
+            가장 도움이 된 내용
+          </label>
+
+          <textarea
+            id="helpful"
+            placeholder="가장 도움이 되었던 내용을 입력해주세요."
+            required
+          ></textarea>
+
+        </div>
+
+
+        <button
+          id="btn"
+          type="submit"
+        >
+          설문 제출
+        </button>
+
+        <div
+          id="error"
+          class="error"
+        ></div>
+
+      </form>
+
+    </div>
+
+
+    <!-- 제출 완료 -->
+    <div id="success">
+
+      <div class="success-icon">
+        ✓
+      </div>
+
+      <h2>
+        설문에 참여해주셔서<br>
+        감사합니다.
+      </h2>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    const form =
+      document.getElementById("form");
+
+    const btn =
+      document.getElementById("btn");
+
+    const error =
+      document.getElementById("error");
+
+
+    form.addEventListener(
+      "submit",
+      function(event) {
+
+        event.preventDefault();
+
+        error.style.display = "none";
+
+
+        const rating =
+          document.querySelector(
+            "input[name='rating']:checked"
+          );
+
+
+        if (!rating) {
+
+          showError(
+            "교육만족도를 선택해주세요."
+          );
+
+          return;
+        }
+
+
+        const data = {
+
+          name:
+            document
+              .getElementById("name")
+              .value
+              .trim(),
+
+          satisfaction:
+            rating.value,
+
+          helpful:
+            document
+              .getElementById("helpful")
+              .value
+              .trim()
+
+        };
+
+
+        btn.disabled = true;
+        btn.textContent = "제출 중...";
+
+
+        google.script.run
+
+          .withSuccessHandler(
+            function(result) {
+
+              if (
+                result &&
+                result.success
+              ) {
+
+                document
+                  .getElementById("survey")
+                  .style.display = "none";
+
+                document
+                  .getElementById("success")
+                  .style.display = "block";
+
+              } else {
+
+                showError(
+                  "설문 제출 중 문제가 발생했습니다."
+                );
+
+              }
+
+            }
+          )
+
+          .withFailureHandler(
+            function(err) {
+
+              showError(
+                err.message ||
+                "설문 제출 중 문제가 발생했습니다."
+              );
+
+            }
+          )
+
+          .submitSurvey(data);
+
+      }
+    );
+
+
+    function showError(message) {
+
+      error.textContent = message;
+      error.style.display = "block";
+
+      btn.disabled = false;
+      btn.textContent = "설문 제출";
+
+    }
+
+  </script>
+
+</body>
+</html>
