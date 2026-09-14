@@ -1,7 +1,11 @@
-모바일 청첩장 사용법
+Smart QR 밝은 톤 + 마우스 반응형 그라데이션 버전
+- Code.gs
+- index.html
+- logo.png
 
-- index.html: 모바일 청첩장 본체
-- pictures/: 청첩장에 들어간 웨딩 이미지
-- WEDDING 설정값을 수정하면 이름/날짜/장소/전화번호/지도 링크를 변경할 수 있습니다.
-- 실제 신랑·신부 사진을 사용하려면 pictures 폴더의 gallery 이미지와 hero-wedding.jpg를 원하는 사진으로 교체하세요.
-- GitHub Pages에서는 index.html과 pictures 폴더를 함께 업로드하면 됩니다.
+특징:
+- 밝고 깨끗한 배경
+- 로고와 어울리는 블루/라벤더 계열 그라데이션
+- 마우스 위치에 따라 빛과 그라데이션이 부드럽게 이동
+- 스마트폰에서는 터치 위치에 따라 효과가 이동
+- QR 클릭 시 JPG 다운로드
