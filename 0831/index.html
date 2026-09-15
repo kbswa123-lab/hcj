@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 경주로 떠나는 팀 MT (5인)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gyeongju: {
+              50: '#fbf8f3',
+              100: '#f5efe4',
+              200: '#ebd9c3',
+              500: '#b8864c',
+              600: '#9b6c38',
+              800: '#5e3f1e',
+              900: '#3c2813',
+            },
+            brand: {
+              primary: '#e06d44',
+              dark: '#1e293b',
+              accent: '#38bdf8'
+            }
+          },
+          fontFamily: {
+            sans: ['Pretendard', 'Inter', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+    html {
+      scroll-behavior: smooth;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: #cbd5e1;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-stone-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-amber-200 selection:text-amber-900">
+
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 shadow-sm transition-all">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-2 font-bold text-lg sm:text-xl tracking-tight text-stone-900">
+        <span class="p-2 rounded-xl bg-gradient-to-tr from-amber-600 to-orange-500 text-white shadow-sm flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+        </span>
+        <span>경주 MT 2026</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
+        <a href="#roles" class="hover:text-amber-600 transition-colors">5인 역할분담</a>
+        <a href="#schedule" class="hover:text-amber-600 transition-colors">1박 2일 일정</a>
+        <a href="#checklist" class="hover:text-amber-600 transition-colors">체크리스트</a>
+        <a href="#budget" class="hover:text-amber-600 transition-colors">예산/정산 (1/N)</a>
+        <a href="#github-guide" class="hover:text-amber-600 transition-colors flex items-center gap-1.5 text-stone-900 font-semibold bg-stone-100 hover:bg-stone-200 px-3 py-1.5 rounded-lg border border-stone-300">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+          </svg>
+          Git 가이드
+        </a>
+      </nav>
+
+      <!-- Mobile Button -->
+      <button id="mobileMenuBtn" class="md:hidden p-2 text-stone-600 hover:text-stone-900 focus:outline-none rounded-lg border border-stone-200">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-stone-200 px-4 py-3 space-y-2">
+      <a href="#roles" class="block py-2 text-stone-700 font-medium">5인 역할분담</a>
+      <a href="#schedule" class="block py-2 text-stone-700 font-medium">1박 2일 일정</a>
+      <a href="#checklist" class="block py-2 text-stone-700 font-medium">체크리스트</a>
+      <a href="#budget" class="block py-2 text-stone-700 font-medium">예산/정산 (1/N)</a>
+      <a href="#github-guide" class="block py-2 text-amber-700 font-semibold">GitHub 협업 가이드</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="relative overflow-hidden bg-gradient-to-br from-stone-900 via-stone-800 to-amber-950 text-white py-16 sm:py-24">
+    <div class="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#d97706_1px,transparent_1px)] [background-size:20px_20px]"></div>
+    
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 text-center">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs sm:text-sm font-semibold tracking-wide uppercase mb-6 backdrop-blur-sm">
+        <span>천년고도 경주로 떠나는 힐링 & 빌딩 MT</span>
+      </div>
+      
+      <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight text-white mb-6">
+        5명의 시너지, <br class="sm:hidden" />
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-orange-300 to-yellow-200">
+          2026 경주 팀 MT
+        </span>
+      </h1>
+      
+      <p class="text-stone-300 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed font-light">
+        황리단길의 미식부터 동궁과 월지의 달빛 야경, 그리고 불국사의 아침까지!<br class="hidden sm:inline"/>
+        서로의 호흡을 맞추고 개발과 협업의 추억을 깃허브에 남겨보세요.
+      </p>
+
+      <!-- Quick Info Pills -->
+      <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-6 text-sm text-stone-200">
+        <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10">
+          <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+          <span class="font-medium">장소: 경상북도 경주시</span>
+        </div>
+        <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10">
+          <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+          <span class="font-medium">인원: 5인 정원 (풀참)</span>
+        </div>
+        <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10">
+          <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          <span class="font-medium">일정: 1박 2일 알찬 코스</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5인 팀원 & 역할 분담 섹션 -->
+  <section id="roles" class="py-16 bg-white border-b border-stone-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-amber-600 font-semibold tracking-wider text-xs uppercase bg-amber-50 px-3 py-1 rounded-full border border-amber-200">Role Allocation</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mt-2">5인 맞춤형 역할 분담</h2>
+        <p class="text-stone-500 mt-2 text-sm">한 사람에게 부담이 쏠리지 않도록 각자의 강점을 살려 임무를 나눴습니다.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
+        <!-- Role 1 -->
+        <div class="bg-stone-50 hover:bg-stone-100 transition-all duration-200 rounded-2xl p-5 border border-stone-200 flex flex-col justify-between group shadow-sm hover:shadow-md">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">
+              팀원 1
+            </div>
+            <div class="inline-block px-2.5 py-0.5 rounded-md text-xs font-semibold bg-amber-600 text-white mb-2">
+              총무 & 정산 마스터
+            </div>
+            <h3 class="text-base font-bold text-stone-900">팀 예산 총괄</h3>
+            <p class="text-stone-600 text-xs mt-2 leading-relaxed">
+              모든 공동 지출 영수증 수집 및 카카오페이/계좌이체 1/N 정산 관리.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-stone-200 text-[11px] text-stone-500 font-mono">
+            Key: 지출내역 투명 공개
+          </div>
+        </div>
+
+        <!-- Role 2 -->
+        <div class="bg-stone-50 hover:bg-stone-100 transition-all duration-200 rounded-2xl p-5 border border-stone-200 flex flex-col justify-between group shadow-sm hover:shadow-md">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">
+              팀원 2
+            </div>
+            <div class="inline-block px-2.5 py-0.5 rounded-md text-xs font-semibold bg-blue-600 text-white mb-2">
+              운전 & 내비게이션
+            </div>
+            <h3 class="text-base font-bold text-stone-900">이동 & 경로 가이드</h3>
+            <p class="text-stone-600 text-xs mt-2 leading-relaxed">
+              렌터카/차량 운행 지원, 황리단길 주차장 및 공영주차장 실시간 파악.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-stone-200 text-[11px] text-stone-500 font-mono">
+            Key: 안전운전 & 주차 팁
+          </div>
+        </div>
+
+        <!-- Role 3 -->
+        <div class="bg-stone-50 hover:bg-stone-100 transition-all duration-200 rounded-2xl p-5 border border-stone-200 flex flex-col justify-between group shadow-sm hover:shadow-md">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">
+              팀원 3
+            </div>
+            <div class="inline-block px-2.5 py-0.5 rounded-md text-xs font-semibold bg-rose-600 text-white mb-2">
+              바비큐 & 장보기 셰프
+            </div>
+            <h3 class="text-base font-bold text-stone-900">식사 & 마트 장보기</h3>
+            <p class="text-stone-600 text-xs mt-2 leading-relaxed">
+              경주 농협하나로마트 장보기 리스트업, 저녁 바비큐 숯불 굽기 지휘.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-stone-200 text-[11px] text-stone-500 font-mono">
+            Key: 5인분 고기 정량 사수
+          </div>
+        </div>
+
+        <!-- Role 4 -->
+        <div class="bg-stone-50 hover:bg-stone-100 transition-all duration-200 rounded-2xl p-5 border border-stone-200 flex flex-col justify-between group shadow-sm hover:shadow-md">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">
+              팀원 4
+            </div>
+            <div class="inline-block px-2.5 py-0.5 rounded-md text-xs font-semibold bg-emerald-600 text-white mb-2">
+              레크 & 아이스브레이킹
+            </div>
+            <h3 class="text-base font-bold text-stone-900">팀 빌딩 게임 기획</h3>
+            <p class="text-stone-600 text-xs mt-2 leading-relaxed">
+              숙소 저녁 레크리에이션(라이어 게임, 몸으로 말해요, 퀴즈) 진행 및 벌칙 주관.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-stone-200 text-[11px] text-stone-500 font-mono">
+            Key: 침묵 없는 분위기 UP
+          </div>
+        </div>
+
+        <!-- Role 5 -->
+        <div class="bg-stone-50 hover:bg-stone-100 transition-all duration-200 rounded-2xl p-5 border border-stone-200 flex flex-col justify-between group shadow-sm hover:shadow-md">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">
+              팀원 5
+            </div>
+            <div class="inline-block px-2.5 py-0.5 rounded-md text-xs font-semibold bg-purple-600 text-white mb-2">
+              미디어 & Git 기록관
+            </div>
+            <h3 class="text-base font-bold text-stone-900">인생샷 & Repo 리드</h3>
+            <p class="text-stone-600 text-xs mt-2 leading-relaxed">
+              동궁과 월지 야경 사진 촬영, 단체사진 아카이빙 및 GitHub Repo 구조 세팅.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-stone-200 text-[11px] text-stone-500 font-mono">
+            Key: 고화질 사진 & PR 머지
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1박 2일 상세 일정 섹션 -->
+  <section id="schedule" class="py-16 bg-stone-100/70">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-amber-700 font-semibold tracking-wider text-xs uppercase bg-amber-100/60 px-3 py-1 rounded-full border border-amber-300">Itinerary</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mt-2">1박 2일 경주 MT 스케줄</h2>
+        <p class="text-stone-500 mt-2 text-sm">경주의 주요 랜드마크 방문과 팀 빌딩을 균형 있게 구성한 완벽한 5인 일정표입니다.</p>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="flex justify-center mb-8">
+        <div class="inline-flex p-1.5 bg-stone-200/80 rounded-2xl shadow-inner gap-2">
+          <button id="tabDay1Btn" onclick="switchDay('day1')" class="px-6 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-white text-stone-900 shadow-sm">
+            1일차 : 경주 입성 & 바비큐의 밤
+          </button>
+          <button id="tabDay2Btn" onclick="switchDay('day2')" class="px-6 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 text-stone-600 hover:text-stone-900">
+            2일차 : 문화 힐링 & 팀 회고
+          </button>
+        </div>
+      </div>
+
+      <!-- Day 1 Schedule Timeline -->
+      <div id="day1Content" class="space-y-4">
+        <!-- Item 1 -->
+        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-amber-400 transition-colors">
+          <div class="flex items-start gap-4">
+            <span class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-800 font-bold text-xs whitespace-nowrap">10:00 ~ 12:00</span>
+            <div>
+              <h4 class="font-bold text-stone-900 text-base">팀원 5인 집결 및 경주 도착</h4>
+              <p class="text-stone-500 text-xs sm:text-sm mt-0.5">신경주역(KTX) 또는 경주고속버스터미널 인근 카셰어링/차량 픽업 후 이동</p>
+            </div>
+          </div>
+          <span class="text-xs bg-stone-100 text-stone-600 px-3 py-1 rounded-full font-medium self-end sm:self-center">이동 & 집결</span>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-amber-400 transition-colors">
+          <div class="flex items-start gap-4">
+            <span class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-800 font-bold text-xs whitespace-nowrap">12:30 ~ 14:30</span>
+            <div>
+              <h4 class="font-bold text-stone-900 text-base">황리단길 핫플레이스 점심 & 골목 산책</h4>
+              <p class="text-stone-500 text-xs sm:text-sm mt-0.5">경주 특색 맛집(육회물회, 떡갈비 or 퓨전 한식) 식사 후 황남쫀드기 & 십원빵 간식 타임</p>
+            </div>
+          </div>
+          <span class="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium self-end sm:self-center">황리단길 맛집</span>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-amber-400 transition-colors">
+          <div class="flex items-start gap-4">
+            <span class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-800 font-bold text-xs whitespace-nowrap">15:00 ~ 16:30</span>
+            <div>
+              <h4 class="font-bold text-stone-900 text-base">마트 장보기 및 펜션 체크인</h4>
+              <p class="text-stone-500 text-xs sm:text-sm mt-0.5">경주 하나로마트에서 저녁 바비큐용 삼겹살/목살, 쌈채소, 음료, 주류 일괄 구매 후 보문단지 펜션 도착</p>
+            </div>
+          </div>
+          <span class="text-xs bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-medium self-end sm:self-center">장보기 / 체크인</span>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-amber-400 transition-colors">
+          <div class="flex items-start gap-4">
+            <span class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-800 font-bold text-xs whitespace-nowrap">16:30 ~ 18:00</span>
+            <div>
+              <h4 class="font-bold text-stone-900 text-base">팀 빌딩 아이스브레이킹 & 미니 게임</h4>
+              <p class="text-stone-500 text-xs sm:text-sm mt-0.5">팀원 4 주관: 5인 스피드 퀴즈, 개발자 밸런스 게임, 저녁 설거지 당번 뽑기 게임</p>
+            </div>
+          </div>
+          <span class="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-medium self-end sm:self-center">팀 빌딩 게임</span>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-amber-400 transition-colors">
+          <div class="flex items-start gap-4">
+            <span class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-800 font-bold text-xs whitespace-nowrap">18:00 ~ 20:30</span>
+            <div>
+              <h4 class="font-bold text-stone-900 text-base">메인 바비큐 파티 & 저녁 식사</h4>
+              <p class="text-stone-500 text-xs sm:text-sm mt-0.5">야외 숯불 그릴 바비큐, 라면 끓이기, 음악과 함께하는 편안한 팀 토크</p>
+            </div>
+          </div>
+          <span class="text-xs bg-rose-100 text-rose-700 px-3 py-1 rounded-full font-medium self-end sm:self-center">하이라이트 BBQ</span>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-amber-400 transition-colors">
+          <div class="flex items-start gap-4">
+            <span class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-800 font-bold text-xs whitespace-nowrap">20:40 ~ 22:00</span>
+            <div>
+              <h4 class="font-bold text-stone-900 text-base">동궁과 월지(안압지) & 첨성대 야경 투어</h4>
+              <p class="text-stone-500 text-xs sm:text-sm mt-0.5">경주의 밤을 수놓는 환상적인 조명 산책, 5인 단체 사진 및 프로필 촬영</p>
+            </div>
+          </div>
+          <span class="text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full font-medium self-end sm:self-center">경주 야경 명소</span>
+        </div>
+
+        <!-- Item 7 -->
+        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-amber-400 transition-colors">
+          <div class="flex items-start gap-4">
+            <span class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-800 font-bold text-xs whitespace-nowrap">22:30 ~ 심야</span>
+            <div>
+              <h4 class="font-bold text-stone-900 text-base">숙소 복귀 & 심야 소통 세션 (GitHub 맛보기)</h4>
+              <p class="text-stone-500 text-xs sm:text-sm mt-0.5">가벼운 야식과 보드게임, 오늘 찍은 사진 공유 및 각자 GitHub 레포지토리 Fork/PR 연습</p>
+            </div>
+          </div>
+          <span class="text-xs bg-stone-100 text-stone-700 px-3 py-1 rounded-full font-medium self-end sm:self-center">자유 힐링 타임</span>
+        </div>
+      </div>
+
+      <!-- Day 2 Schedule Timeline (Hidden by default) -->
+      <div id="day2Content" class="hidden space-y-4">
+        <!-- Item 1 -->
+        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-amber-400 transition-colors">
+          <div class="flex items-start gap-4">
+            <span class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-800 font-bold text-xs whitespace-nowrap">08:30 ~ 10:30</span>
+            <div>
+              <h4 class="font-bold text-stone-900 text-base">기상, 해장 아침 식사 및 펜션 정리</h4>
+              <p class="text-stone-500 text-xs sm:text-sm mt-0.5">숙소 분리수거 및 짐 챙기기, 체크아웃 완료 (총무 보증금 확인)</p>
+            </div>
+          </div>
+          <span class="text-xs bg-stone-100 text-stone-600 px-3 py-1 rounded-full font-medium self-end sm:self-center">체크아웃</span>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-amber-400 transition-colors">
+          <div class="flex items-start gap-4">
+            <span class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-800 font-bold text-xs whitespace-nowrap">11:00 ~ 12:30</span>
+            <div>
+              <h4 class="font-bold text-stone-900 text-base">불국사 또는 대릉원 천마총 고즈넉한 산책</h4>
+              <p class="text-stone-500 text-xs sm:text-sm mt-0.5">상쾌한 피톤치드 숲길 걷기, 다보탑과 석가탑 관람, 소원 빌기</p>
+            </div>
+          </div>
+          <span class="text-xs bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-medium self-end sm:self-center">문화 탐방</span>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-amber-400 transition-colors">
+          <div class="flex items-start gap-4">
+            <span class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-800 font-bold text-xs whitespace-nowrap">12:45 ~ 14:00</span>
+            <div>
+              <h4 class="font-bold text-stone-900 text-base">경주 명물 한정식 or 순두부찌개 점심</h4>
+              <p class="text-stone-500 text-xs sm:text-sm mt-0.5">보문단지 맷돌순두부 혹은 경주 한우물회 든든한 마무리 식사</p>
+            </div>
+          </div>
+          <span class="text-xs bg-orange-100 text-orange-700 px-3 py-1 rounded-full font-medium self-end sm:self-center">로컬 미식</span>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-amber-400 transition-colors">
+          <div class="flex items-start gap-4">
+            <span class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-800 font-bold text-xs whitespace-nowrap">14:15 ~ 15:45</span>
+            <div>
+              <h4 class="font-bold text-stone-900 text-base">대형 한옥 카페에서 MT 회고 & Git 작업</h4>
+              <p class="text-stone-500 text-xs sm:text-sm mt-0.5">커피 한잔과 함께 이번 MT 회고(KPT), 각자 브랜치 생성 후 마크다운 보고서 PR 업로드</p>
+            </div>
+          </div>
+          <span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-medium self-end sm:self-center">팀 회고 & Git 완료</span>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="bg-white p-5 rounded-2xl border border-stone-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-amber-400 transition-colors">
+          <div class="flex items-start gap-4">
+            <span class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-800 font-bold text-xs whitespace-nowrap">16:00 ~</span>
+            <div>
+              <h4 class="font-bold text-stone-900 text-base">경주역/터미널 배웅 및 해산</h4>
+              <p class="text-stone-500 text-xs sm:text-sm mt-0.5">경주빵/황남빵 선물 쇼핑 후 안전하게 귀가</p>
+            </div>
+          </div>
+          <span class="text-xs bg-stone-100 text-stone-600 px-3 py-1 rounded-full font-medium self-end sm:self-center">안전 귀가</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 인터랙티브 준비물 체크리스트 섹션 -->
+  <section id="checklist" class="py-16 bg-white border-b border-stone-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-amber-600 font-semibold tracking-wider text-xs uppercase bg-amber-50 px-3 py-1 rounded-full border border-amber-200">Supplies Checklist</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mt-2">5인 준비물 체크리스트</h2>
+        <p class="text-stone-500 mt-2 text-sm">빠진 짐이 없는지 직접 클릭해서 실시간으로 상태를 점검해보세요.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- 공용 준비물 -->
+        <div class="bg-stone-50 rounded-2xl p-6 border border-stone-200">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-lg text-stone-900 flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+              공동 준비물 (팀별 분담)
+            </h3>
+            <span id="commonProgress" class="text-xs font-semibold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full">0/6 완료</span>
+          </div>
+          <div class="space-y-2.5 text-sm" id="commonList">
+            <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white cursor-pointer border border-transparent hover:border-stone-200 transition-colors">
+              <input type="checkbox" onchange="updateChecklistProgress()" class="w-4 h-4 rounded text-amber-600 focus:ring-amber-500 border-stone-300">
+              <span class="text-stone-700 font-medium">보조배터리 및 멀티탭 (숙소 콘센트 부족 대비)</span>
+            </label>
+            <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white cursor-pointer border border-transparent hover:border-stone-200 transition-colors">
+              <input type="checkbox" onchange="updateChecklistProgress()" class="w-4 h-4 rounded text-amber-600 focus:ring-amber-500 border-stone-300">
+              <span class="text-stone-700 font-medium">비상약 (소화제, 두통약, 밴드, 모기약)</span>
+            </label>
+            <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white cursor-pointer border border-transparent hover:border-stone-200 transition-colors">
+              <input type="checkbox" onchange="updateChecklistProgress()" class="w-4 h-4 rounded text-amber-600 focus:ring-amber-500 border-stone-300">
+              <span class="text-stone-700 font-medium">바비큐용 숯/토치/장갑 (펜션 제공 여부 사전 체크)</span>
+            </label>
+            <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white cursor-pointer border border-transparent hover:border-stone-200 transition-colors">
+              <input type="checkbox" onchange="updateChecklistProgress()" class="w-4 h-4 rounded text-amber-600 focus:ring-amber-500 border-stone-300">
+              <span class="text-stone-700 font-medium">블루투스 스피커 & 보드게임 세트</span>
+            </label>
+            <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white cursor-pointer border border-transparent hover:border-stone-200 transition-colors">
+              <input type="checkbox" onchange="updateChecklistProgress()" class="w-4 h-4 rounded text-amber-600 focus:ring-amber-500 border-stone-300">
+              <span class="text-stone-700 font-medium">차량용 스마트폰 거치대 & 충전선</span>
+            </label>
+            <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white cursor-pointer border border-transparent hover:border-stone-200 transition-colors">
+              <input type="checkbox" onchange="updateChecklistProgress()" class="w-4 h-4 rounded text-amber-600 focus:ring-amber-500 border-stone-300">
+              <span class="text-stone-700 font-medium">물티슈 & 일회용 쓰레기봉투</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 개인 준비물 -->
+        <div class="bg-stone-50 rounded-2xl p-6 border border-stone-200">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-bold text-lg text-stone-900 flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+              개인별 준비물 (5명 각자 지참)
+            </h3>
+            <span id="personalProgress" class="text-xs font-semibold text-blue-700 bg-blue-100 px-2.5 py-1 rounded-full">0/6 완료</span>
+          </div>
+          <div class="space-y-2.5 text-sm" id="personalList">
+            <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white cursor-pointer border border-transparent hover:border-stone-200 transition-colors">
+              <input type="checkbox" onchange="updateChecklistProgress()" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-stone-300">
+              <span class="text-stone-700 font-medium">신분증 & 운전면허증 (운전자 필수)</span>
+            </label>
+            <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white cursor-pointer border border-transparent hover:border-stone-200 transition-colors">
+              <input type="checkbox" onchange="updateChecklistProgress()" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-stone-300">
+              <span class="text-stone-700 font-medium">노트북 & 충전기 (GitHub 협업 및 회고용)</span>
+            </label>
+            <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white cursor-pointer border border-transparent hover:border-stone-200 transition-colors">
+              <input type="checkbox" onchange="updateChecklistProgress()" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-stone-300">
+              <span class="text-stone-700 font-medium">1박 2일 여벌 옷, 수면 잠옷, 겉옷</span>
+            </label>
+            <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white cursor-pointer border border-transparent hover:border-stone-200 transition-colors">
+              <input type="checkbox" onchange="updateChecklistProgress()" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-stone-300">
+              <span class="text-stone-700 font-medium">세면도구, 칫솔, 폼클렌저, 화장품</span>
+            </label>
+            <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white cursor-pointer border border-transparent hover:border-stone-200 transition-colors">
+              <input type="checkbox" onchange="updateChecklistProgress()" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-stone-300">
+              <span class="text-stone-700 font-medium">편안한 운동화 (대릉원 & 야경 산책용)</span>
+            </label>
+            <label class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white cursor-pointer border border-transparent hover:border-stone-200 transition-colors">
+              <input type="checkbox" onchange="updateChecklistProgress()" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-stone-300">
+              <span class="text-stone-700 font-medium">개인 텀블러 or 손수건</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 예산 & 1/N 정산 계산기 섹션 -->
+  <section id="budget" class="py-16 bg-stone-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-xl mx-auto mb-10">
+        <span class="text-amber-600 font-semibold tracking-wider text-xs uppercase bg-amber-100/60 px-3 py-1 rounded-full border border-amber-200">Budget Calculator</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mt-2">5인 예상 경비 & 1/N 정산</h2>
+        <p class="text-stone-500 mt-2 text-sm">값을 수정하면 1인당 부담금이 실시간으로 자동 계산됩니다.</p>
+      </div>
+
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-sm">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
+          <div>
+            <label class="block text-xs font-bold text-stone-600 mb-1.5">경주 독채/펜션 숙박비 (원)</label>
+            <input type="number" id="costLodging" value="260000" step="5000" oninput="calculateBudget()" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-stone-800 font-semibold" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-stone-600 mb-1.5">교통비 (KTX/렌터카/유류비/톨게이트) (원)</label>
+            <input type="number" id="costTransport" value="180000" step="5000" oninput="calculateBudget()" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-stone-800 font-semibold" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-stone-600 mb-1.5">바비큐 장보기 + 주류/간식 (원)</label>
+            <input type="number" id="costMarket" value="160000" step="5000" oninput="calculateBudget()" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-stone-800 font-semibold" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-stone-600 mb-1.5">외식 2회 + 카페 + 관광지 입장료 (원)</label>
+            <input type="number" id="costDining" value="150000" step="5000" oninput="calculateBudget()" class="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-stone-800 font-semibold" />
+          </div>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <div class="text-xs text-amber-800 font-semibold">총 예상 공동 경비 (5인 기준)</div>
+            <div id="totalCostDisplay" class="text-2xl sm:text-3xl font-black text-amber-900 mt-0.5">750,000 원</div>
+          </div>
+          <div class="text-right sm:border-l sm:border-amber-200 sm:pl-6 w-full sm:w-auto">
+            <div class="text-xs text-stone-600 font-medium">1인당 분담 금액 (1/5)</div>
+            <div id="perPersonCostDisplay" class="text-xl sm:text-2xl font-bold text-stone-900 mt-0.5">150,000 원</div>
+          </div>
+        </div>
+
+        <div class="mt-4 flex items-center justify-between text-xs text-stone-500 px-1">
+          <span>* 참가인원: <strong>5명 고정</strong></span>
+          <span>* 총무 계좌로 선입금 50% 권장</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GitHub 협업 & 작업 업로드 가이드 섹션 -->
+  <section id="github-guide" class="py-16 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-stone-700 font-semibold tracking-wider text-xs uppercase bg-stone-100 px-3 py-1 rounded-full border border-stone-300">Git & GitHub Guide</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-stone-900 mt-2">각 팀원 GitHub에 작업 올리기</h2>
+        <p class="text-stone-500 mt-2 text-sm">MT 웹페이지 수정사항 및 각자의 후기를 개별 브랜치로 분기하여 Push & PR하는 표준 워크플로우입니다.</p>
+      </div>
+
+      <!-- Step-by-step workflow -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <!-- Step 1 -->
+        <div class="p-6 rounded-2xl bg-stone-50 border border-stone-200 flex flex-col justify-between">
+          <div>
+            <div class="w-8 h-8 rounded-lg bg-stone-900 text-white flex items-center justify-center text-sm font-bold mb-3">1</div>
+            <h3 class="font-bold text-stone-900 mb-1">Clone & Branch 생성</h3>
+            <p class="text-stone-600 text-xs leading-relaxed mb-4">
+              공동 레포지토리를 클론하고 본인 이름으로 feature 브랜치를 생성합니다.
+            </p>
+          </div>
+          <div class="bg-stone-900 rounded-xl p-3 text-emerald-400 font-mono text-[11px] overflow-x-auto custom-scrollbar">
+            git clone &lt;repo-url&gt;<br/>
+            cd gyeongju-mt-2026<br/>
+            git checkout -b feat/member-name
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="p-6 rounded-2xl bg-stone-50 border border-stone-200 flex flex-col justify-between">
+          <div>
+            <div class="w-8 h-8 rounded-lg bg-stone-900 text-white flex items-center justify-center text-sm font-bold mb-3">2</div>
+            <h3 class="font-bold text-stone-900 mb-1">수정 사항 Commit & Push</h3>
+            <p class="text-stone-600 text-xs leading-relaxed mb-4">
+              자신의 역할, 일정 피드백, 후기 마크다운을 작성한 뒤 커밋 규칙에 맞춰 푸시합니다.
+            </p>
+          </div>
+          <div class="bg-stone-900 rounded-xl p-3 text-emerald-400 font-mono text-[11px] overflow-x-auto custom-scrollbar">
+            git add .<br/>
+            git commit -m "docs: 경주 MT 일정 및 후기 추가"<br/>
+            git push origin feat/member-name
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="p-6 rounded-2xl bg-stone-50 border border-stone-200 flex flex-col justify-between">
+          <div>
+            <div class="w-8 h-8 rounded-lg bg-stone-900 text-white flex items-center justify-center text-sm font-bold mb-3">3</div>
+            <h3 class="font-bold text-stone-900 mb-1">Pull Request & 코드 리뷰</h3>
+            <p class="text-stone-600 text-xs leading-relaxed mb-4">
+              GitHub 웹페이지에서 main 브랜치로 PR을 올리고 다른 팀원 2명 이상의 리뷰 후 머지합니다.
+            </p>
+          </div>
+          <div class="bg-stone-900 rounded-xl p-3 text-emerald-400 font-mono text-[11px] overflow-x-auto custom-scrollbar">
+            Title: [Member-1] 경주 코스 업데이트<br/>
+            Reviewers: 5인 팀원 지정<br/>
+            Merge: Squash & Merge
+          </div>
+        </div>
+      </div>
+
+      <!-- Commit Convention & Structure Card -->
+      <div class="bg-stone-900 text-stone-200 rounded-2xl p-6 sm:p-8">
+        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          5인 팀 GitHub 커밋 컨벤션 템플릿
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
+          <div class="p-3 bg-stone-800/80 rounded-xl border border-stone-700">
+            <span class="text-amber-300 font-bold block mb-1">feat: 새로운 기능/페이지 추가</span>
+            <span class="text-stone-400">예: feat: 대릉원 사진 갤러리 섹션 추가</span>
+          </div>
+          <div class="p-3 bg-stone-800/80 rounded-xl border border-stone-700">
+            <span class="text-amber-300 font-bold block mb-1">docs: 문서 및 마크다운 후기 수정</span>
+            <span class="text-stone-400">예: docs: 팀원 3 바비큐 재료 리스트 정리</span>
+          </div>
+          <div class="p-3 bg-stone-800/80 rounded-xl border border-stone-700">
+            <span class="text-amber-300 font-bold block mb-1">fix: 버그 및 오타 수정</span>
+            <span class="text-stone-400">예: fix: 1/N 정산 계산 공식 오류 수정</span>
+          </div>
+          <div class="p-3 bg-stone-800/80 rounded-xl border border-stone-700">
+            <span class="text-amber-300 font-bold block mb-1">style: UI/디자인 레이아웃 보정</span>
+            <span class="text-stone-400">예: style: 모바일 화면 카드 여백 조정</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-auto bg-stone-900 border-t border-stone-800 text-stone-400 py-8 text-xs text-center">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <p class="font-medium text-stone-300 mb-2">2026 경주 팀 MT (인원: 5명) - 성장을 위한 리프레시 여행</p>
+      <p class="text-stone-500">황리단길 • 동궁과 월지 • 불국사 • 바비큐 파티 • GitHub 팀 프로젝트</p>
+      <div class="mt-4 text-[11px] text-stone-600">
+        Created for 5 Team Members • Safe & Memorable Trip to Gyeongju
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Tab switcher for Day 1 and Day 2
+    function switchDay(day) {
+      const day1Content = document.getElementById('day1Content');
+      const day2Content = document.getElementById('day2Content');
+      const tabDay1Btn = document.getElementById('tabDay1Btn');
+      const tabDay2Btn = document.getElementById('tabDay2Btn');
+
+      if (day === 'day1') {
+        day1Content.classList.remove('hidden');
+        day2Content.classList.add('hidden');
+        tabDay1Btn.className = "px-6 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-white text-stone-900 shadow-sm";
+        tabDay2Btn.className = "px-6 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 text-stone-600 hover:text-stone-900";
+      } else {
+        day1Content.classList.add('hidden');
+        day2Content.classList.remove('hidden');
+        tabDay2Btn.className = "px-6 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-white text-stone-900 shadow-sm";
+        tabDay1Btn.className = "px-6 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 text-stone-600 hover:text-stone-900";
+      }
+    }
+
+    // Interactive Checklist Progress Counter
+    function updateChecklistProgress() {
+      const commonBoxes = document.querySelectorAll('#commonList input[type="checkbox"]');
+      const commonChecked = document.querySelectorAll('#commonList input[type="checkbox"]:checked').length;
+      document.getElementById('commonProgress').innerText = `${commonChecked}/${commonBoxes.length} 완료`;
+
+      const personalBoxes = document.querySelectorAll('#personalList input[type="checkbox"]');
+      const personalChecked = document.querySelectorAll('#personalList input[type="checkbox"]:checked').length;
+      document.getElementById('personalProgress').innerText = `${personalChecked}/${personalBoxes.length} 완료`;
+    }
+
+    // Budget Calculation Logic (1/N for 5 People)
+    function calculateBudget() {
+      const lodging = parseFloat(document.getElementById('costLodging').value) || 0;
+      const transport = parseFloat(document.getElementById('costTransport').value) || 0;
+      const market = parseFloat(document.getElementById('costMarket').value) || 0;
+      const dining = parseFloat(document.getElementById('costDining').value) || 0;
+
+      const total = lodging + transport + market + dining;
+      const perPerson = Math.round(total / 5);
+
+      document.getElementById('totalCostDisplay').innerText = `${total.toLocaleString('ko-KR')} 원`;
+      document.getElementById('perPersonCostDisplay').innerText = `${perPerson.toLocaleString('ko-KR')} 원`;
+    }
+
+    // Mobile Navigation Toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      const mobileBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+      // Initialize calculation on load
+      calculateBudget();
+      updateChecklistProgress();
+    });
+  </script>
+</body>
+</html>
