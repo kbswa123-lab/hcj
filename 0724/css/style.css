@@ -1,615 +1,162 @@
-<!DOCTYPE html>
-<html lang="ko"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>강보승 | Resume & Portfolio</title><style>
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
-
-:root{
---bg:#e9ebef;
---card:#ffffff;
---text:#171717;
---muted:#777;
---line:#e2e4e8;
---accent:#f3c400;
---accent-dark:#b08d00;
---dark:#151515;
---shadow:
-12px 12px 25px rgba(0,0,0,.12),
--8px -8px 20px rgba(255,255,255,.85);
+body {
+    background-color: #f5f5f5;
+    color: #2f2f2f;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
 }
 
-*{
-box-sizing:border-box;
+section {
+    background-color: white;
+    border-radius: 10px;
+    padding: 40px;
+    margin-bottom: 10px;
 }
 
-html{
-scroll-behavior:smooth;
+.wrapper {
+    width: 85%;
+    margin: 20px auto;
 }
 
-body{
-margin:0;
-background:
-radial-gradient(circle at 10% 10%,rgba(255,255,255,.9),transparent 28%),
-radial-gradient(circle at 90% 90%,rgba(243,196,0,.10),transparent 25%),
-var(--bg);
-color:var(--text);
-font-family:'Noto Sans KR',sans-serif;
-line-height:1.7;
-perspective:1200px;
+h1 {
+    display: none;
 }
 
-/* 전체 영역 */
-.wrapper{
-width:min(900px,92%);
-margin:40px auto 70px;
+h2, h3 {
+    font-family: sans-serif;
 }
 
-/* =========================
-기본 Section 3D
-========================= */
-
-section{
-position:relative;
-background:
-linear-gradient(
-145deg,
-rgba(255,255,255,.98),
-rgba(248,249,251,.96)
-);
-border:1px solid rgba(255,255,255,.8);
-border-radius:22px;
-padding:42px;
-margin-bottom:20px;
-
-box-shadow:var(--shadow);
-
-transform:translateZ(0);
-transition:
-transform .35s ease,
-box-shadow .35s ease;
+h2 {
+    margin: 0 0 20px 0;
+    text-transform: uppercase;
+    font-size: 18px;
 }
 
-section:hover{
-transform:
-translateY(-7px)
-rotateX(1deg)
-rotateY(-1deg);
-
-box-shadow:
-18px 22px 38px rgba(0,0,0,.16),
--10px -10px 24px rgba(255,255,255,.9);
+#my_info h2 {
+    display: none;
 }
 
-/* Section 위쪽 빛 */
-section:before{
-content:"";
-position:absolute;
-left:18%;
-right:18%;
-top:0;
-height:1px;
-background:linear-gradient(
-90deg,
-transparent,
-rgba(255,255,255,.9),
-transparent
-);
+#my_info img {
+    width: 100px;
+    height: auto;
+    border-radius: 50px;
+    margin-right: 40px;
+} 
+
+table {
+    display: inline-block;
+    border-collapse: collapse;
+    border-spacing: 0;
+    vertical-align: top;
 }
 
-/* =========================
-PROFILE CARD
-========================= */
-
-.profile-card{
-display:flex;
-align-items:center;
-gap:38px;
-min-height:270px;
-
-background:
-radial-gradient(
-circle at 85% 20%,
-rgba(243,196,0,.22),
-transparent 25%
-),
-linear-gradient(
-145deg,
-#252525,
-#0e0e0e
-);
-
-color:#fff;
-overflow:hidden;
-position:relative;
-
-border:1px solid rgba(255,255,255,.08);
-
-box-shadow:
-18px 20px 40px rgba(0,0,0,.28),
-inset 1px 1px 0 rgba(255,255,255,.08),
-inset -2px -3px 8px rgba(0,0,0,.5);
-
-transform-style:preserve-3d;
+th {
+    text-align: left;
+    padding-right: 20px;
 }
 
-/* 노란 3D 원 */
-.profile-card:after{
-content:"";
-position:absolute;
-
-width:260px;
-height:260px;
-
-right:-100px;
-top:-90px;
-
-border-radius:50%;
-
-background:
-radial-gradient(
-circle at 35% 30%,
-#ffe978,
-var(--accent) 45%,
-#a98100 100%
-);
-
-box-shadow:
-inset -15px -18px 30px rgba(0,0,0,.18),
-inset 10px 10px 25px rgba(255,255,255,.35),
-15px 18px 30px rgba(0,0,0,.3);
-
-transform:translateZ(30px);
+th, td {
+    font-size: 12px;
 }
 
-/* 추가 3D 장식 */
-.profile-card:before{
-content:"";
-position:absolute;
-width:130px;
-height:130px;
-right:40px;
-bottom:-75px;
-border-radius:50%;
-
-background:rgba(255,255,255,.04);
-
-box-shadow:
-0 0 0 18px rgba(255,255,255,.025),
-0 0 0 36px rgba(255,255,255,.018);
+#myname th {
+    display: none;
 }
 
-/* 프로필 요소 */
-.profile-photo,
-.profile-content{
-position:relative;
-z-index:2;
-transform:translateZ(35px);
+#myname td {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-/* 프로필 사진 */
-.profile-photo{
-flex:0 0 150px;
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
-.profile-photo img{
-display:block;
-
-width:150px;
-height:150px;
-
-object-fit:cover;
-border-radius:50%;
-
-border:5px solid #fff;
-
-box-shadow:
-0 15px 30px rgba(0,0,0,.45),
-0 0 0 8px rgba(243,196,0,.12);
-
-transition:
-transform .4s ease,
-box-shadow .4s ease;
+a:hover {
+    text-decoration: underline;
+    color: gold;
 }
 
-.profile-photo img:hover{
-transform:
-translateY(-8px)
-rotateY(10deg)
-rotateX(5deg);
-
-box-shadow:
-15px 22px 35px rgba(0,0,0,.5),
-0 0 0 10px rgba(243,196,0,.18);
+ul {
+    list-style: none;
+    padding: 0;
 }
 
-/* 작은 제목 */
-.eyebrow,
-.section-label{
-margin:0 0 7px;
-
-font-size:11px;
-font-weight:900;
-letter-spacing:2px;
-
-color:var(--accent-dark);
+ul li {
+    margin-bottom: 4px;
 }
 
-.profile-card .eyebrow{
-color:var(--accent);
+ul li::before {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 10px;
 }
 
-/* 이름 */
-h1,
-h2,
-h3{
-margin-top:0;
+ul li:nth-child(1)::before {
+    content: url('../images/ico_mobile.png');
+}
+ul li:nth-child(2)::before {
+    content: url('../images/ico_email.png');
+}
+ul li:nth-child(3)::before {
+    content: url('../images/ico_facebook.png');
+}
+ul li:nth-child(4)::before {
+    content: url('../images/ico_blog.png');
 }
 
-h1{
-margin-bottom:4px;
-
-font-size:clamp(32px,6vw,52px);
-line-height:1.1;
-font-weight:900;
-
-letter-spacing:-2px;
-
-text-shadow:
-0 3px 0 rgba(0,0,0,.5),
-0 7px 15px rgba(0,0,0,.35);
+#skill ol {
+    list-style: none;
+    padding: 0;
 }
 
-h2{
-margin-bottom:22px;
-
-font-size:27px;
-line-height:1.2;
-
-letter-spacing:-.8px;
-
-text-shadow:
-1px 1px 0 #fff,
-2px 3px 5px rgba(0,0,0,.08);
+#skill li {
+    display: inline-block;
+    background-color: gold;
+    padding: 4px 10px;
+    border-radius: 32px;
+    margin: 0 8px 8px 0;
 }
 
-h3{
-margin-bottom:6px;
-font-size:21px;
+#skill li::before {
+    content: "#";
 }
 
-.profile-message{
-margin:0 0 22px;
-color:#d2d2d2;
+#project ol {
+    list-style: none;
+    padding: 0;
 }
 
-/* =========================
-PROFILE INFO
-========================= */
-
-.info-grid{
-display:flex;
-flex-wrap:wrap;
-gap:22px;
+#project li {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
 }
 
-.info-grid div{
-display:flex;
-flex-direction:column;
+#project li:last-child {
+    border-bottom: none;
 }
 
-.info-grid span{
-color:#aaa;
-font-size:11px;
+#project video {
+    width: 100%;
 }
 
-.info-grid strong{
-font-size:13px;
+#project a {
+    color: gold;
+    display: inline-block;
+    border-radius: 4px;
+    padding: 2px 8px 2px 0;
 }
 
-/* =========================
-TEXT
-========================= */
-
-.lead{
-font-size:19px;
-font-weight:700;
+#project a:hover {
+    background-color: #2f2f2f;
+    text-decoration: none;
+    padding: 2px 8px;
+    transition: padding 0.2s;
 }
-
-/* =========================
-CONTACT
-========================= */
-
-.contact-list{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:14px;
-}
-
-.contact-item{
-display:flex;
-align-items:center;
-gap:13px;
-
-padding:16px;
-
-border:1px solid var(--line);
-border-radius:14px;
-
-background:
-linear-gradient(
-145deg,
-#fff,
-#f3f4f6
-);
-
-color:inherit;
-text-decoration:none;
-
-box-shadow:
-5px 6px 12px rgba(0,0,0,.08),
--4px -4px 10px rgba(255,255,255,.9);
-
-transition:
-transform .25s ease,
-box-shadow .25s ease,
-border-color .25s ease;
-}
-
-.contact-item:hover{
-transform:
-translateY(-5px)
-translateZ(12px);
-
-border-color:var(--accent);
-
-background:#fffdf2;
-
-box-shadow:
-8px 12px 20px rgba(0,0,0,.14),
--5px -5px 12px rgba(255,255,255,.9);
-}
-
-.contact-item small{
-display:block;
-color:#999;
-font-size:9px;
-letter-spacing:1.5px;
-}
-
-/* 아이콘 */
-.icon{
-display:grid;
-place-items:center;
-
-width:42px;
-height:42px;
-
-border-radius:50%;
-
-background:
-radial-gradient(
-circle at 30% 25%,
-#fff49b,
-var(--accent) 55%,
-#bd9800
-);
-
-font-weight:900;
-
-box-shadow:
-4px 6px 10px rgba(0,0,0,.18),
-inset 2px 2px 4px rgba(255,255,255,.6),
-inset -3px -4px 6px rgba(0,0,0,.12);
-
-transition:transform .25s ease;
-}
-
-.contact-item:hover .icon{
-transform:
-rotateY(20deg)
-rotateX(10deg)
-scale(1.08);
-}
-
-/* =========================
-SKILLS
-========================= */
-
-.skills{
-display:flex;
-flex-wrap:wrap;
-gap:12px;
-}
-
-.skills span{
-display:inline-block;
-
-padding:8px 16px;
-
-border-radius:999px;
-
-background:
-linear-gradient(
-145deg,
-#ffe66a,
-var(--accent)
-);
-
-font-size:13px;
-font-weight:700;
-
-box-shadow:
-4px 5px 10px rgba(0,0,0,.15),
-inset 1px 1px 2px rgba(255,255,255,.65),
-inset -2px -2px 3px rgba(0,0,0,.12);
-
-transition:
-transform .25s ease,
-box-shadow .25s ease;
-}
-
-.skills span:hover{
-transform:
-translateY(-5px)
-rotateX(8deg)
-rotateY(-5deg);
-
-box-shadow:
-7px 10px 15px rgba(0,0,0,.2),
-inset 1px 1px 3px rgba(255,255,255,.7);
-}
-
-/* =========================
-QUALIFICATIONS
-========================= */
-
-.qualifications{
-margin-top:28px;
-
-border-top:1px solid var(--line);
-
-padding-top:24px;
-}
-
-.qualifications h3{
-font-size:17px;
-}
-
-.qualification-list{
-display:flex;
-flex-wrap:wrap;
-gap:12px;
-}
-
-.qualification-list div{
-display:flex;
-align-items:center;
-gap:10px;
-
-border:1px solid var(--line);
-border-radius:12px;
-
-padding:10px 14px;
-
-background:#fff;
-
-box-shadow:
-3px 4px 8px rgba(0,0,0,.08);
-
-transition:
-transform .25s ease,
-box-shadow .25s ease;
-}
-
-.qualification-list div:hover{
-transform:
-translateY(-4px)
-rotateX(4deg);
-
-box-shadow:
-6px 9px 14px rgba(0,0,0,.13);
-}
-
-.qualification-list span{
-font-size:12px;
-color:#777;
-}
-
-/* =========================
-PROJECT
-========================= */
-
-.project-card{
-display:grid;
-grid-template-columns:55px 1fr;
-gap:15px;
-padding-top:8px;
-}
-
-.project-number{
-font-size:13px;
-font-weight:900;
-color:var(--accent-dark);
-
-text-shadow:
-1px 2px 2px rgba(0,0,0,.12);
-}
-
-.project-body{
-border-left:2px solid var(--line);
-padding-left:22px;
-
-transition:
-transform .3s ease,
-border-color .3s ease;
-}
-
-.project-card:hover .project-body{
-transform:translateX(5px);
-border-color:var(--accent);
-}
-
-.project-body p{
-color:var(--muted);
-}
-
-/* =========================
-VIDEO
-========================= */
-
-video{
-display:block;
-
-width:100%;
-max-height:560px;
-
-margin-top:18px;
-
-background:#111;
-
-border-radius:15px;
-
-box-shadow:
-8px 12px 25px rgba(0,0,0,.22),
-inset 0 0 0 1px rgba(255,255,255,.08);
-
-transition:
-transform .35s ease,
-box-shadow .35s ease;
-}
-
-video:hover{
-transform:
-translateY(-5px)
-rotateX(1deg);
-
-box-shadow:
-12px 18px 32px rgba(0,0,0,.28);
-}
-
-/* =========================
-FOOTER
-========================= */
-
-footer{
-displ
-
-</style>
-</head><body><main class="wrapper">
-<section class="profile-card">
-<div class="profile-photo"><img src="images/profile.jpg" alt="강보승의 증명사진"></div>
-<div class="profile-content"><p class="eyebrow">RESUME · PORTFOLIO</p><h1>강보승</h1>
-<p class="profile-message">경성대학교 일어문학전공 4학년</p>
-<div class="info-grid"><div><span>직업</span><strong>대학생</strong></div><div><span>나이</span><strong>25세</strong></div><div><span>거주지</span><strong>부산</strong></div></div></div></section>
-<section id="about"><p class="section-label">01 · ABOUT</p><h2>About Me</h2><p class="lead">안녕하세요 저는 경성대학교 일어문학전공 4학년 강보승입니다.</p></section>
-<section id="contact"><p class="section-label">02 · CONTACT</p><h2>Contact</h2><div class="contact-list">
-<a href="mailto:yumewa123@naver.com" class="contact-item"><span class="icon">✉</span><span><small>EMAIL</small>yumewa123@naver.com</span></a>
-<a href="https://github.com/kbswa123-lab" target="_blank" rel="noopener" class="contact-item"><span class="icon">↗</span><span><small>GITHUB</small>kbswa123-lab</span></a>
-</div></section>
-<section id="skill"><p class="section-label">03 · 쟈격증</p><h2>Skills & Qualifications</h2>
-<div class="qualifications"><h3>자격증</h3><div class="qualification-list"><div><strong>JLPT</strong><span>N2</span></div><div><strong>전자기능사</strong></div></div></div></section>
-<section id="project"><p class="section-label">04 · PROJECTS</p><h2>Projects</h2><article class="project-card"><div class="project-number">01</div><div class="project-body"><h3>프로젝트 영상</h3><p>제공해주신 프로젝트 영상을 확인할 수 있습니다.</p><video src="movie.mp4" controls playsinline preload="metadata"></video></div></article></section>
-<footer><span>© 2026 강보승</span><span>Resume & Portfolio</span></footer>
-</main></body></html>
